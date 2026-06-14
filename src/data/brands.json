@@ -1,0 +1,16 @@
+[
+  { "id": 1, "name": "Audi", "slug": "audi", "logo": "https://vl.imgix.net/img/audi-logo.png" },
+  { "id": 2, "name": "BMW", "slug": "bmw", "logo": "https://vl.imgix.net/img/bmw-logo.png" },
+  { "id": 3, "name": "Ford", "slug": "ford", "logo": "https://vl.imgix.net/img/ford-logo.png" },
+  { "id": 4, "name": "Mercedes Benz", "slug": "mercedes-benz", "logo": "https://vl.imgix.net/img/mercedes-benz-logo.png" },
+  { "id": 5, "name": "Daihatsu", "slug": "daihatsu", "logo": "https://vl.imgix.net/img/daihatsu-logo.png" },
+  { "id": 6, "name": "MG", "slug": "mg", "logo": "https://vl.imgix.net/img/mg-logo.png" },
+  { "id": 7, "name": "KIA", "slug": "kia", "logo": "https://vl.imgix.net/img/kia-logo.png" },
+  { "id": 8, "name": "Toyota", "slug": "toyota", "logo": "https://vl.imgix.net/img/toyota-logo.png" },
+  { "id": 9, "name": "Honda", "slug": "honda", "logo": "https://vl.imgix.net/img/honda-logo.png" },
+  { "id": 10, "name": "Lexus", "slug": "lexus", "logo": "https://vl.imgix.net/img/lexus-logo.png" },
+  { "id": 11, "name": "Suzuki", "slug": "suzuki", "logo": "https://vl.imgix.net/img/suzuki-logo.png" },
+  { "id": 12, "name": "Nissan", "slug": "nissan", "logo": "https://vl.imgix.net/img/nissan-logo.png" },
+  { "id": 13, "name": "Mitsubishi", "slug": "mitsubishi", "logo": "https://vl.imgix.net/img/mitsubishi-logo.png" },
+  { "id": 14, "name": "Peugeot", "slug": "peugeot", "logo": "https://vl.imgix.net/img/peugeot-logo.png" }
+]

@@ -1,0 +1,172 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-brand-yellow: #eece00;
+  --color-brand-black: #000000;
+  --color-brand-dark: #111111;
+  --color-brand-darker: #1a1a1a;
+  --color-brand-offwhite: #f5f5f5;
+  --shadow-yellow-sm: 0 2px 12px rgba(238,206,0,0.20);
+  --shadow-yellow-md: 0 4px 24px rgba(238,206,0,0.30);
+  --shadow-yellow-lg: 0 8px 40px rgba(238,206,0,0.40);
+  --font-heading: var(--font-heading), sans-serif;
+  --font-body: var(--font-body), sans-serif;
+  --font-sans: var(--font-body), sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+}
+
+/* Brand selection highlight */
+::selection {
+  background-color: #eece00;
+  color: #000000;
+}
+
+/* Brand scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #eece00; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #d4b000; }
+
+/* Yellow focus ring for ALL inputs globally */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: #eece00 !important;
+  box-shadow: 0 0 0 3px rgba(238, 206, 0, 0.25) !important;
+}
+
+/* ── DEFAULT BODY FONT ── */
+body {
+  font-family: var(--font-body), sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  background-color: var(--background);
+  color: var(--foreground);
+  @apply antialiased;
+}
+
+/* ── ALL HEADINGS USE BARLOW CONDENSED ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), sans-serif;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+/* ── HEADING SIZE SCALE ── */
+h1 { font-size: clamp(42px, 6vw, 72px); font-weight: 900; }
+h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; }
+h3 { font-size: clamp(20px, 3vw, 28px); font-weight: 700; }
+h4 { font-size: 18px;                    font-weight: 700; }
+h5 { font-size: 14px;                    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ── PARAGRAPH / BODY TEXT ── */
+p {
+  font-family: var(--font-body), sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+/* ── SMALL LABELS / EYEBROWS ── */
+.label-text {
+  font-family: var(--font-heading), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ── PRICES ── */
+.price-text {
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+/* ── BUTTONS ── */
+button, .btn, a.btn {
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+/* ── NAV LINKS ── */
+nav a {
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ── FORM INPUTS / LABELS ── */
+input, select, textarea {
+  font-family: var(--font-body), sans-serif;
+  font-size: 14px;
+}
+
+label {
+  font-family: var(--font-body), sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+/* ── BADGES / TAGS ── */
+.badge {
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── TABLE CELLS ── */
+th {
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+td {
+  font-family: var(--font-body), sans-serif;
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 30s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 30s linear infinite;
+}
