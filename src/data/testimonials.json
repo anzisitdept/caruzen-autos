@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Ahmed Raza",
+    "location": "Sukkur",
+    "rating": 5,
+    "text": "Best car buying experience in Sukkur! The team was professional and the car was exactly as described. The entire paperwork process was handled smoothly.",
+    "avatar": "/placeholder.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Sajid Ali",
+    "location": "Khairpur",
+    "rating": 5,
+    "text": "I found my dream car at Caruzen Motors. Fair price, no pressure, and excellent customer service. Highly recommended for anyone nearby!",
+    "avatar": "/placeholder.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Bilal Mahmood",
+    "location": "Shikarpur",
+    "rating": 5,
+    "text": "Very trustworthy dealership. Bought a used Honda Civic and it's been perfect. The inspection report they provided was 100% accurate. Thanks Caruzen!",
+    "avatar": "/placeholder.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Zainab Baloch",
+    "location": "Larkana",
+    "rating": 4,
+    "text": "Great selection of clean, low-mileage cars. The sales staff was helpful without being pushy. Would definitely buy from them again.",
+    "avatar": "/placeholder.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Usman Tariq",
+    "location": "Ghotki",
+    "rating": 5,
+    "text": "I was skeptical about buying a used car, but Caruzen Motors made it easy and transparent. The car looks and drives like new.",
+    "avatar": "/placeholder.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Imran Jatoi",
+    "location": "Mirpur Khas",
+    "rating": 5,
+    "text": "A seamless transaction from start to finish. The team took care of all the transfer details and gave me a fair trade-in value.",
+    "avatar": "/placeholder.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Fatima Shah",
+    "location": "Lakhi",
+    "rating": 5,
+    "text": "Outstanding service! They really listened to what I needed and helped me find a safe, reliable family car within my budget.",
+    "avatar": "/placeholder.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Tariq Hussain",
+    "location": "Khairpur",
+    "rating": 4,
+    "text": "Good experience overall. The staff is polite, and the showroom has a premium feel. The vehicle condition was exactly as advertised.",
+    "avatar": "/placeholder.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Ali Abbas",
+    "location": "Shikarpur",
+    "rating": 5,
+    "text": "One of the best dealerships in Sindh! Will definitely return when I need my next vehicle. Thank you for the transparent pricing.",
+    "avatar": "/placeholder.jpg"
+  }
+]
