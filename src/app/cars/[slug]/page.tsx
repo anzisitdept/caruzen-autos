@@ -170,7 +170,7 @@ export default function CarDetailsPage() {
                 
                 {/* PRICE BLOCK */}
                 <div className="border-l-4 border-[#eece00] pl-4 py-1.5 my-6 bg-[#f9f9f9] rounded-r-md">
-                  <p className="font-heading font-bold text-xs uppercase tracking-[0.04em] text-[#666666]">Asking Price</p>
+                  <p className="font-heading font-bold text-xs uppercase tracking-[0.04em] text-[#666666]">Estimated Price</p>
                   <p className="font-heading font-black text-4xl text-[#000000] mt-1">{formatPrice(car.price)}</p>
                 </div>
 
