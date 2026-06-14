@@ -129,7 +129,7 @@ export default function CarDetailsPage() {
                   return (
                   <SwiperSlide key={index}>
                     <div className="relative w-full h-full">
-                      <Image src={src} alt={`${car.make} ${car.model}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px" className="object-contain bg-black" priority={index === 0} />
+                      <Image src={src} alt={`${car.make} ${car.model}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px" className="object-contain bg-black" priority={index === 0} unoptimized={true} referrerPolicy="no-referrer" />
                     </div>
                   </SwiperSlide>
                 )})}
@@ -149,7 +149,7 @@ export default function CarDetailsPage() {
                   return (
                   <SwiperSlide key={index} className="cursor-pointer rounded-lg overflow-hidden border-2 border-transparent opacity-60 hover:opacity-100 transition-opacity">
                     <div className="relative w-full h-full">
-                      <Image src={src} alt={`${car.make} ${car.model}`} fill sizes="(max-width: 768px) 25vw, 200px" className="object-cover" />
+                      <Image src={src} alt={`${car.make} ${car.model}`} fill sizes="(max-width: 768px) 25vw, 200px" className="object-cover" unoptimized={true} referrerPolicy="no-referrer" />
                     </div>
                   </SwiperSlide>
                 )})}
