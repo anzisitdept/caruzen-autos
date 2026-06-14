@@ -73,6 +73,8 @@ export default function VariantDetailsPage() {
           fill
           className="object-cover opacity-60"
           priority
+          unoptimized={true}
+          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
         <div className="absolute inset-0 flex items-end">
