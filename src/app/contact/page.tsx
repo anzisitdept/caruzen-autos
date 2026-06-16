@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SectionHeading from "@/components/SectionHeading";
 import Button from "@/components/Button";
@@ -54,7 +54,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <main className="pt-[80px] pb-20 bg-[#f9f9f9] min-h-screen">
         
         {/* NEW CONTACT HERO */}

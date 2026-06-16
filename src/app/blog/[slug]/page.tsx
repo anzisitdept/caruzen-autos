@@ -3,7 +3,7 @@
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import blogsData from "@/data/blogs.json";
 import SectionHeading from "@/components/SectionHeading";
@@ -40,7 +40,7 @@ export default function SingleBlogPage() {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <main className="pt-20 bg-[#f9f9f9] min-h-screen">
         
         {/* 1. Hero / Banner Image at the top (Full width banner) */}

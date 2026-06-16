@@ -3,10 +3,17 @@
 import { useState, useEffect } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
+import Link from "next/link";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SectionHeading from "@/components/SectionHeading";
-import { Check, X } from "lucide-react";
+import { Check, X, Phone, MapPin, Calendar } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 
 export default function VariantDetailsPage() {
   const { slug, variantId } = useParams();
@@ -14,6 +21,7 @@ export default function VariantDetailsPage() {
   const [car, setCar] = useState<any>(null);
   const [variant, setVariant] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
   useEffect(() => {
     const fetchVariant = async () => {
@@ -42,7 +50,7 @@ export default function VariantDetailsPage() {
   if (loading) {
     return (
       <>
-        <Navbar />
+        <Header />
         <main className="pt-24 pb-16 bg-[#f9f9f9] min-h-screen flex items-center justify-center">
           <div className="font-heading font-bold text-xl text-gray-500">Loading variant details...</div>
         </main>
@@ -63,44 +71,84 @@ export default function VariantDetailsPage() {
 
   return (
     <>
-      <Navbar />
+      <Header />
       
-      {/* Hero Banner Section */}
-      <div className="relative w-full h-[40vh] md:h-[50vh] bg-black pt-20">
-        <Image 
-          src={coverImage}
-          alt={variant.name || 'Variant Image'}
-          fill
-          className="object-cover opacity-60"
-          priority
-          unoptimized={true}
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-        <div className="absolute inset-0 flex items-end">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div>
-                <span className="font-heading font-bold text-[#eece00] tracking-widest uppercase text-sm mb-2 block">
-                  {car?.make} {car?.model}
-                </span>
-                <h1 className="font-heading font-black text-4xl md:text-5xl text-white uppercase tracking-tight">
-                  {variant.name || variant.id}
-                </h1>
-              </div>
-              <div className="bg-[#eece00] px-6 py-3 rounded-lg inline-block">
-                <span className="block font-heading font-bold text-[10px] uppercase tracking-wider text-black/70 mb-1">Price</span>
-                <span className="font-heading font-black text-2xl md:text-3xl text-black leading-none">
-                  {variant.parsedPrice ? formatPrice(variant.parsedPrice) : (variant.price || 'Contact Us')}
-                </span>
+      <main className="pt-24 pb-16 bg-[#f9f9f9] min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+          
+          <h1 className="font-heading font-bold text-lg md:text-xl lg:text-2xl text-[#0e1d44] mb-8">
+            {variant.name?.toLowerCase().includes(car?.make?.toLowerCase()) ? '' : `${car?.make} ${car?.model} `}{variant.name || variant.id} Price in Pakistan, Specs & Features
+          </h1>
+
+          <div className="flex flex-col lg:flex-row gap-8 mb-12">
+            {/* Image Gallery (Left 65%) */}
+            <div className="lg:w-[65%] flex flex-col gap-4">
+              <Swiper
+                style={{
+                  "--swiper-navigation-color": "#eece00",
+                  "--swiper-pagination-color": "#eece00",
+                } as React.CSSProperties}
+                spaceBetween={10}
+                navigation={true}
+                thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="w-full aspect-[4/3] rounded-xl overflow-hidden bg-black shadow-sm"
+              >
+                {(car?.images && car.images.length > 0 ? car.images : [coverImage]).map((img: string | any, index: number) => {
+                  const src = typeof img === 'string' ? img : (img?.url || "/placeholder.jpg");
+                  return (
+                  <SwiperSlide key={index}>
+                    <div className="relative w-full h-full">
+                      <Image src={index === 0 ? coverImage : src} alt={`${car?.make} ${variant.name}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px" className="object-contain bg-black" priority={index === 0} unoptimized={true} referrerPolicy="no-referrer" />
+                    </div>
+                  </SwiperSlide>
+                )})}
+              </Swiper>
+              
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="w-full h-24 thumbs-slider"
+              >
+                {(car?.images && car.images.length > 0 ? car.images : [coverImage]).map((img: string | any, index: number) => {
+                  const src = typeof img === 'string' ? img : (img?.url || "/placeholder.jpg");
+                  return (
+                  <SwiperSlide key={index} className="cursor-pointer rounded-lg overflow-hidden border-2 border-transparent opacity-60 hover:opacity-100 transition-opacity">
+                    <div className="relative w-full h-full">
+                      <Image src={index === 0 ? coverImage : src} alt={`${car?.make} ${variant.name}`} fill sizes="(max-width: 768px) 25vw, 200px" className="object-cover" unoptimized={true} referrerPolicy="no-referrer" />
+                    </div>
+                  </SwiperSlide>
+                )})}
+              </Swiper>
+            </div>
+
+            {/* Info Block (Right 35%) */}
+            <div className="lg:w-[35%] flex flex-col">
+              <div className="bg-white p-6 rounded-xl shadow-sm mb-6 border border-[#e5e5e5]">
+                <div className="flex items-start justify-between mb-2">
+                  <h2 className="font-heading font-extrabold text-[24px] lg:text-[30px] text-black leading-tight tracking-[0.01em]">
+                    {car?.year && `${car.year} `}{car?.make} {car?.model} <span className="block font-heading font-medium text-[18px] text-gray-500 mt-1">{variant.name || variant.id}</span>
+                  </h2>
+                </div>
+                
+                {/* PRICE BLOCK */}
+                <div className="border-l-4 border-[#eece00] pl-4 py-1.5 my-6 bg-[#f9f9f9] rounded-r-md">
+                  <p className="font-heading font-bold text-xs uppercase tracking-[0.04em] text-[#666666]">Estimated Price</p>
+                  <p className="font-heading font-black text-4xl text-[#000000] mt-1">{variant.parsedPrice ? formatPrice(variant.parsedPrice) : (variant.price || 'Contact Us')}</p>
+                </div>
+
+                <div className="flex flex-col gap-3 mt-4">
+                  <a href="tel:03473931287" className="font-heading font-black text-[13px] tracking-[0.04em] uppercase w-full flex items-center justify-center py-3 bg-[#eece00] text-[#000000] rounded-md hover:bg-[#000000] hover:text-[#eece00] transition-colors border border-transparent hover:border-[#eece00] cursor-pointer">
+                    <Phone size={20} className="mr-2" /> Call Now
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <main className="py-12 bg-[#f9f9f9] min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Quick Specs Strip */}
           <div className="bg-white rounded-xl shadow-sm border border-[#e5e5e5] p-6 mb-12 flex flex-wrap gap-y-6 justify-between">

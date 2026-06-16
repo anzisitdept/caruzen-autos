@@ -27,7 +27,7 @@ export async function GET(request: Request, context: { params: Promise<{ slug: s
         const make = carData.brand_name || carData.brand_slug || '';
         const model = carData.name?.replace(new RegExp(`^${make}\\s*`, 'i'), '') || carData.name || '';
 
-        const carFormatted = {
+        const carFormatted: any = {
           ...carData,
           id: carDoc.id,
           make,
@@ -49,19 +49,48 @@ export async function GET(request: Request, context: { params: Promise<{ slug: s
           slug: carData.slug,
         };
 
-        // Fetch variants
         const variantsSnapshot = await carDoc.ref.collection('variants').get();
+        let minVPrice = Infinity;
+        let maxVPrice = 0;
+
         const variants = variantsSnapshot.docs.map(v => {
           const vData = v.data();
           let vPrice = 0;
-          if (typeof vData.price === 'string') {
-             const m = vData.price.match(/[\d.]+/);
-             if (m) vPrice = parseFloat(m[0]) * 100000;
+          
+          // Use ex_factory_price if price is missing or not a proper string/number
+          const priceString = vData.price || vData.ex_factory_price;
+          
+          if (typeof priceString === 'string') {
+             // Remove commas so "3,326,446" becomes "3326446"
+             const cleanString = priceString.replace(/,/g, '');
+             const m = cleanString.match(/[\d.]+/);
+             if (m) {
+                 const parsedNum = parseFloat(m[0]);
+                 // If the parsed number is small (like 29.95 lacs), multiply by 100000.
+                 // If it's already large (like 3326446), just use it.
+                 if (parsedNum < 1000) {
+                     vPrice = parsedNum * 100000;
+                 } else {
+                     vPrice = parsedNum;
+                 }
+             }
           } else if (typeof vData.price === 'number') {
              vPrice = vData.price;
           }
+
+          if (vPrice > 0) {
+            minVPrice = Math.min(minVPrice, vPrice);
+            maxVPrice = Math.max(maxVPrice, vPrice);
+          }
+
           return { id: v.id, ...vData, parsedPrice: vPrice };
         });
+
+        // Add dynamically calculated prices in lacs for the frontend
+        if (minVPrice !== Infinity && maxVPrice !== 0) {
+          carFormatted.computed_min_price_lacs = (minVPrice / 100000).toFixed(2);
+          carFormatted.computed_max_price_lacs = (maxVPrice / 100000).toFixed(2);
+        }
 
         // Fetch related cars (2 Suzuki, 2 Toyota)
         let relatedCars: any[] = [];

@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSection from "@/sections/HeroSection";
 import AdvancedSearchBar from "@/sections/AdvancedSearchBar";
@@ -13,10 +13,10 @@ import FinalCTA from "@/sections/FinalCTA";
 export default function Home() {
   return (
     <>
-      <Navbar />
+      <Header />
       <main>
         <HeroSection />
-        <AdvancedSearchBar />
+        {/*<AdvancedSearchBar />*/}
         <FeaturedVehicles />
         <BrowseByBrand />
         <NewCarsCollection />

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhyChooseUs from "@/sections/WhyChooseUs";
 import SectionHeading from "@/components/SectionHeading";
@@ -13,7 +13,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <main className="min-h-screen pt-[80px] bg-[#000000]">
 
         {/* Hero Banner */}
