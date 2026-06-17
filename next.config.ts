@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -14,8 +15,23 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
       {
-        protocol: "https",
-        hostname: "*.pakwheels.com",
+        protocol: 'https',
+        hostname: 'cache1.pakwheels.com',
+        pathname: "/**",
+      },
+      {
+        protocol: 'https',
+        hostname: 'cache2.pakwheels.com',
+        pathname: "/**",
+      },
+      {
+        protocol: 'https',
+        hostname: 'cache3.pakwheels.com',
+        pathname: "/**",
+      },
+      {
+        protocol: 'https',
+        hostname: 'cache4.pakwheels.com',
         pathname: "/**",
       },
     ],

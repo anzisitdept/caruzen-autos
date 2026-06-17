@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlogCard from "@/components/BlogCard";
 import SectionHeading from "@/components/SectionHeading";
@@ -27,7 +27,7 @@ export default function BlogListingPage() {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <main className="pt-[80px] pb-16 bg-[#f9f9f9] min-h-screen">
         
         {/* REDESIGNED BLOG HERO */}

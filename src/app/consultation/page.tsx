@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SectionHeading from "@/components/SectionHeading";
 import Button from "@/components/Button";
@@ -45,7 +45,7 @@ export default function ConsultationPage() {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <main className="min-h-screen bg-[#f9f9f9]">
         
         {/* Hero Section */}

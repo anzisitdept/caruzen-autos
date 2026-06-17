@@ -1,11 +1,11 @@
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Button from "@/components/Button";
 
 export default function NotFound() {
   return (
     <div className="flex flex-col min-h-screen bg-black">
-      <Navbar />
+      <Header />
       <main className="flex-grow flex flex-col items-center justify-center text-center px-4 pt-20">
         <h1 className="font-heading font-black text-9xl text-[#eece00] tracking-widest mb-4 drop-shadow-[0_0_15px_rgba(238,206,0,0.5)]">
           404

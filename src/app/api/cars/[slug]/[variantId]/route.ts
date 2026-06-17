@@ -19,9 +19,19 @@ export async function GET(request: Request, context: { params: Promise<{ slug: s
         if (variantDoc.exists) {
             const vData = variantDoc.data()!;
             let vPrice = 0;
-            if (typeof vData.price === 'string') {
-                 const m = vData.price.match(/[\d.]+/);
-                 if (m) vPrice = parseFloat(m[0]) * 100000;
+            const priceString = vData.price || vData.ex_factory_price;
+            
+            if (typeof priceString === 'string') {
+                 const cleanString = priceString.replace(/,/g, '');
+                 const m = cleanString.match(/[\d.]+/);
+                 if (m) {
+                     const parsedNum = parseFloat(m[0]);
+                     if (parsedNum < 1000) {
+                         vPrice = parsedNum * 100000;
+                     } else {
+                         vPrice = parsedNum;
+                     }
+                 }
             } else if (typeof vData.price === 'number') {
                  vPrice = vData.price;
             }

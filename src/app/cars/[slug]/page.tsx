@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CarCard from "@/components/CarCard";
 import SectionHeading from "@/components/SectionHeading";
@@ -76,7 +76,7 @@ export default function CarDetailsPage() {
   if (loading) {
     return (
       <>
-        <Navbar />
+        <Header />
         <main className="pt-24 pb-16 bg-[#f9f9f9] min-h-screen flex items-center justify-center">
           <div className="font-heading font-bold text-xl text-gray-500">Loading details...</div>
         </main>
@@ -106,7 +106,7 @@ export default function CarDetailsPage() {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <main className="pt-24 pb-16 bg-[#f9f9f9] min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
           
@@ -120,7 +120,7 @@ export default function CarDetailsPage() {
                 } as React.CSSProperties}
                 spaceBetween={10}
                 navigation={true}
-                thumbs={{ swiper: thumbsSwiper }}
+                thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="w-full aspect-[4/3] rounded-xl overflow-hidden bg-black shadow-sm"
               >
@@ -129,7 +129,7 @@ export default function CarDetailsPage() {
                   return (
                   <SwiperSlide key={index}>
                     <div className="relative w-full h-full">
-                      <Image src={src} alt={`${car.make} ${car.model}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px" className="object-contain bg-black" priority={index === 0} />
+                      <Image src={src} alt={`${car.make} ${car.model}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px" className="object-contain bg-black" priority={index === 0} unoptimized={true} referrerPolicy="no-referrer" />
                     </div>
                   </SwiperSlide>
                 )})}
@@ -149,7 +149,7 @@ export default function CarDetailsPage() {
                   return (
                   <SwiperSlide key={index} className="cursor-pointer rounded-lg overflow-hidden border-2 border-transparent opacity-60 hover:opacity-100 transition-opacity">
                     <div className="relative w-full h-full">
-                      <Image src={src} alt={`${car.make} ${car.model}`} fill sizes="(max-width: 768px) 25vw, 200px" className="object-cover" />
+                      <Image src={src} alt={`${car.make} ${car.model}`} fill sizes="(max-width: 768px) 25vw, 200px" className="object-cover" unoptimized={true} referrerPolicy="no-referrer" />
                     </div>
                   </SwiperSlide>
                 )})}
@@ -169,24 +169,55 @@ export default function CarDetailsPage() {
                 </div>
                 
                 {/* PRICE BLOCK */}
-                <div className="border-l-4 border-[#eece00] pl-4 py-1.5 my-6 bg-[#f9f9f9] rounded-r-md">
-                  <p className="font-heading font-bold text-xs uppercase tracking-[0.04em] text-[#666666]">Asking Price</p>
-                  <p className="font-heading font-black text-4xl text-[#000000] mt-1">{formatPrice(car.price)}</p>
+                <div className="my-6">
+                  <div className="flex flex-wrap items-baseline gap-2 mb-2">
+                    <span className="font-heading font-black text-3xl md:text-4xl text-[#39b54a] leading-none">
+                      {car.computed_min_price_lacs && car.computed_max_price_lacs 
+                        ? (car.computed_min_price_lacs === car.computed_max_price_lacs 
+                           ? `PKR ${car.computed_min_price_lacs} lacs`
+                           : `PKR ${car.computed_min_price_lacs} - ${car.computed_max_price_lacs} lacs`)
+                        : (car.min_price && car.max_price && String(car.max_price) !== "2025" && String(car.max_price) !== "2026"
+                            ? `PKR ${String(car.min_price).replace('PKR', '').replace('lacs', '').trim()} - ${String(car.max_price).replace('PKR', '').replace('lacs', '').trim()} lacs`
+                            : (car.min_price 
+                                ? `PKR ${String(car.min_price).replace('PKR', '').trim()}${String(car.min_price).includes('lacs') ? '' : ' lacs'}` 
+                                : formatPrice(car.price)))}
+                    </span>
+                    <span className="font-body text-sm text-[#777777] whitespace-nowrap">(*Ex-Factory Price)</span>
+                  </div>
+                  
+                  <div className="flex flex-col gap-3 font-body text-sm text-[#555555]">
+                    {car.last_updated && <p>Last Updated: {car.last_updated}</p>}
+                    
+                    {car.financing && (
+                      <p className="font-bold underline cursor-pointer text-[#666666] hover:text-[#000000] transition-colors">
+                        {car.financing}
+                      </p>
+                    )}
+                    
+                    {car.reviews_count && parseInt(car.reviews_count) > 0 && (
+                      <div className="flex items-center gap-2">
+                        <div className="flex text-[#f39c12]">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <svg key={star} className={`w-4 h-4 ${star <= (car.rating || 4) ? 'fill-current' : 'text-gray-300 fill-current'}`} viewBox="0 0 20 20">
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <span className="text-[#337ab7] hover:underline cursor-pointer">{car.reviews_count} Reviews</span>
+                      </div>
+                    )}
+
+                    {car.on_road_price && (
+                      <p className="text-[#337ab7] hover:underline cursor-pointer">On Road Price</p>
+                    )}
+                  </div>
                 </div>
 
-                <div className="flex flex-col gap-2 text-[#555555] mb-8 border-t border-b border-[#eeeeee] py-4">
-                  <div className="font-body text-sm flex items-center text-[#555555]">
-                    <MapPin size={18} className="mr-2 text-[#eece00]" />
-                    Location: <span className="font-heading font-bold ml-1 text-black">{car.city}</span>
-                  </div>
-                  <div className="font-body text-sm flex items-center text-[#555555]">
-                    <Calendar size={18} className="mr-2 text-[#eece00]" />
-                    Posted: <span className="font-heading font-bold ml-1 text-black">{car.postedDate}</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-3">
-                  <a href="tel:03473931287" className="font-heading font-black text-[13px] tracking-[0.04em] uppercase w-full flex items-center justify-center py-3 bg-[#eece00] text-[#000000] rounded-md hover:bg-[#000000] hover:text-[#eece00] transition-colors border border-transparent hover:border-[#eece00] cursor-pointer">
+                <div className="flex flex-col gap-3 mt-2">
+                  <Link href={`/cars?make=${car.make}&model=${car.model}`} className="font-heading font-bold text-[14px] text-center py-2.5 bg-white text-[#337ab7] border border-[#337ab7] rounded hover:bg-[#f4f8fa] transition-colors cursor-pointer">
+                    Used {car.make} {car.model} For Sale
+                  </Link>
+                  <a href="tel:03473931287" className="font-heading font-black text-[13px] tracking-[0.04em] uppercase w-full flex items-center justify-center py-3 bg-[#eece00] text-[#000000] rounded hover:bg-[#000000] hover:text-[#eece00] transition-colors border border-transparent hover:border-[#eece00] cursor-pointer mt-2">
                     <Phone size={20} className="mr-2" /> Call Now
                   </a>
                   <a href={`https://wa.me/923009315053?text=I%20am%20interested%20in%20${car.make}%20${car.model}`} target="_blank" rel="noreferrer" className="font-heading font-black text-[13px] tracking-[0.04em] uppercase w-full flex items-center justify-center py-3 bg-[#25D366] text-white rounded-md hover:bg-[#128C7E] transition-colors cursor-pointer">
